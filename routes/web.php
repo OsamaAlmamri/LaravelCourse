@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-Route::get('/ali',[PostController::class,'index'])
+Route::get('/',[PostController::class,'index'])
     ->name('posts');
+
 Route::get('/carts',[PostController::class,'carts']);
+
 

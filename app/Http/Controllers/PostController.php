@@ -15,6 +15,13 @@ class PostController extends Controller
 
     public function carts()
     {
-        return view('carts.index');
+        $companies = [
+            ['name' => "appal", "price" => 50],
+            ['name' => "samsung", "price" => 45],
+            ['name' => "sony", "price" => 40],
+            ['name' => "Huawei", "price" => 35],
+        ];
+        return view('carts.index')
+            ->with('companies',$companies);
     }
 }
