@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +23,21 @@ Route::get('/',[PostController::class,'index'])
     ->name('posts');
 
 Route::get('/carts',[PostController::class,'carts']);
+
+//Route::get('/categories',[CategoryController::class,'index'])->name('categories.index');
+//
+//Route::get('/categories/{id}',[CategoryController::class,'show']);
+//
+//Route::get('/categories/create',[CategoryController::class,'create']);
+//
+//Route::get('/categories/{id}/edit',[CategoryController::class,'edit']);
+//Route::post('/categories/store',[CategoryController::class,'store']);
+//
+//Route::put('/categories/{id}/update',[CategoryController::class,'update']);
+//
+//Route::delete('/categories/{id}',[CategoryController::class,'destroy']);
+
+Route::resource('categories',CategoryController::class);
+
 
 
