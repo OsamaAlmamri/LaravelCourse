@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('type',['New','Old'])->default('New');
 
         });
+        //php artisan migrate   -- create db if not exist  or crate new table to DB
     }
 
     /**
