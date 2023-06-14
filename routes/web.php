@@ -24,7 +24,8 @@ Route::get('/',[PostController::class,'index'])
 
 Route::get('/carts',[PostController::class,'carts']);
 
-//Route::get('/categories',[CategoryController::class,'index'])->name('categories.index');
+//Route::get('/categories',[CategoryController::class,'index'])
+//->name('categories.index');
 //
 //Route::get('/categories/{id}',[CategoryController::class,'show']);
 //
@@ -37,7 +38,10 @@ Route::get('/carts',[PostController::class,'carts']);
 //
 //Route::delete('/categories/{id}',[CategoryController::class,'destroy']);
 
-Route::resource('categories',CategoryController::class);
+Route::resource('categories',
+    CategoryController::class);
+
+
 
 
 

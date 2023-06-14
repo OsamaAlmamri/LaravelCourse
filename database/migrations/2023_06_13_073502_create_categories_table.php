@@ -17,7 +17,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->boolean('status')->default(1);
             $table->enum('type',['New','Old'])->default('New');
-
         });
         //php artisan migrate   -- create db if not exist  or crate new table to DB
     }

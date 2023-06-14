@@ -13,10 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
-
      $categories=   Category::all();
-        return view('categories.index',compact('categories'));
+        return view('categories.index')->with('categories',$categories);
     }
 
     /**
@@ -43,7 +41,7 @@ class CategoryController extends Controller
             ]
         );
 
-
+        toastr()->success('تم الاضافة بنجاح');
        // return redirect()->back() ;
         return redirect(route('categories.index')) ;
     }
@@ -61,15 +59,19 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('categories.edit',compact('category'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+
+        $category->update([
+            'name'=>$request->name,
+            "description"=>$request->description,
+            "type"=>$request->type,
+            "status"=>isset($request->status)
+        ]);
+        toastr()->success('تم التعديل بنجاح');
+        return redirect(route('categories.index')) ;
     }
 
     /**
@@ -77,7 +79,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        if($category->id>4) {
+            $category->delete();
+            // Display an error toast with no title
+            toastr()->success('تم الحذف بنجاح');
+        }
+        else
+            toastr()->error('لايمكن حذف هذا الصنف');
         return redirect()->back();
     }
 }

@@ -22,16 +22,17 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:categories,name|max:255',
+            'name' => 'required|alpha|unique:categories,name|max:255',
             'description' => 'nullable',
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            'name.required' => 'الاسم مطلوب',
-            'body.required' => 'A message is required',
-        ];
-    }
+//    public function messages(): array
+//    {
+//        return [
+//          "name.required"=>"الاسم مطلوب",
+//          "name.numeric"=>"يجب ان يكون قيمة رقمية",
+//          "name.unique"=>" هذا الاسم موجود من قبل"
+//        ];
+//    }
 }
