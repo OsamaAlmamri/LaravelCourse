@@ -10,6 +10,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Type</th>
@@ -20,6 +21,7 @@
             <tbody>
             @foreach($categories as $category)
                 <tr>
+                    <td>{{$category->id}}</td>
                     <td>{{$category->name}}</td>
                     <td>{{$category->description}}</td>
                     <td>{{$category->type}}</td>
@@ -48,5 +50,8 @@
             @endforeach
             </tbody>
         </table>
+        <div class="col-12 p-3">
+            {!! $categories->render() !!}
+        </div>
     </div>
 @endsection

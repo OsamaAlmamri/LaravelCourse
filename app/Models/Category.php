@@ -14,4 +14,9 @@ class Category extends Model
     protected $table='categories';
     public $timestamps =false;
     protected $guarded=['id','created_at'];
+
+    public function g()
+    {
+        return $this->hasOneThrough(Post::class,Post::class,);
+    }
 }

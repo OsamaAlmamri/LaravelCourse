@@ -21,9 +21,11 @@ class CategoryFactory extends Factory
     {
         return [
             'name'=>fake()->name(),
-            "description"=>fake()->text(),
+            "description"=>fake()->address(),
             "type"=>fake()->randomElement(['Old', 'New']),
             "status"=>fake()->randomElement([0,1]),
         ];
     }
+
+
 }
