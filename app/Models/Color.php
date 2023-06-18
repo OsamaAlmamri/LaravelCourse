@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Color extends Model
 {
     use HasFactory;
-//protected $connection='sqlite';
-    public function comments()
+
+
+    public function cars()
     {
 
-        return $this->hasMany(Comment::class,'post_id');
+        return $this->belongsToMany(Car::class,'car_colors')->withPivot(['name']);
     }
 }

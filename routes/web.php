@@ -41,6 +41,8 @@ Route::get('/carts',[PostController::class,'carts']);
 Route::resource('categories',
     CategoryController::class);
 
+Route::get('cars',[\App\Http\Controllers\CarController::class,'index']);
+
 
 
 
