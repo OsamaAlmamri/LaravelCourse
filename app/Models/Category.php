@@ -19,4 +19,10 @@ class Category extends Model
     {
         return $this->hasOneThrough(Post::class,Post::class,);
     }
+
+    public  function  products()
+    {
+        return $this->belongsToMany(Product::class,'product_categories');
+    }
+
 }
