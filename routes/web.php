@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
@@ -59,6 +60,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('products',
         ProductController::class);
+    Route::resource('roles',
+        RoleController::class);
 });
 
 require __DIR__.'/auth.php';
