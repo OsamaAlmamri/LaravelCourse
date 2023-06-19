@@ -26,8 +26,6 @@ class PermissionsSeeder extends Seeder
             "brands" => ['access', 'create', 'update', 'delete'],
             "orders" => ['access', 'delete'],
             "settings" => ['access', 'update'],
-
-
         ]);
 
         $collection->each(function ($items, $key) {

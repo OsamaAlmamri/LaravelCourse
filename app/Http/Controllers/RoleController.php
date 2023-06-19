@@ -17,7 +17,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id', 'DESC')->paginate();
+        $roles = Role::paginate(25);
         return view('roles.index', compact('roles'));
     }
 
@@ -29,6 +29,8 @@ class RoleController extends Controller
     public function create()
     {
         $groups = Permission::select('group')->distinct()->get();
+
+
         // $permissions =Permission::groupBy('group')->get();
 
         return view('roles.create', compact('groups'));
@@ -89,20 +91,8 @@ class RoleController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
-    {
-        $request->validate([
-            'name' => "required|unique:roles,name," . $role->id,
-        ]);
-        $role->update([
-            'name' => $request->name,
 
-        ]);
-        $role->syncPermissions($request->permissions);
-        toastr()->success("تمت العملية بنجاح");
-        return redirect()->route('roles.index');
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *
