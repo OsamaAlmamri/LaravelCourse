@@ -92,7 +92,7 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    
+
     /**
      * Remove the specified resource from storage.
      *
