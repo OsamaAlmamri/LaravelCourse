@@ -38,7 +38,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-
+        if ($request->id > 0)
         $product = Product::findOrFail($request->id);
         $bath = "";
         if ($request->id > 0) {

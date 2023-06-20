@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container-fluid">
+    <div class="container-fluid bg-white">
         <h1> categories</h1>
 
         <a href="{{route('categories.create')}}" class="btn btn-primary mb-5 float-right"> create</a>

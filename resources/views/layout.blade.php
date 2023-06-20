@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{__("code")}}">
 
 <head>
 
@@ -19,12 +19,17 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-{{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
+    @if(__('code')=='ar')
+        <link href="{{asset('admin/css/sb-admin-2-rtl.css')}}" rel="stylesheet">
+    @endif
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+    {{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
 </head>
 
-<body id="page-top">
+<body id="page-top" dir="{{__("dir")}}">
+
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -69,7 +74,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Auth:</h6>
                     <a class="collapse-item" href="{{route('roles.index')}}">Roles</a>
-                    <a class="collapse-item" href="{{url('carts')}}">Users</a>
+                    <a class="collapse-item" href="{{url('users.index')}}">Users</a>
                 </div>
             </div>
         </li>
@@ -79,16 +84,21 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-wrench"></i>
-                <span>Utilities</span>
+                <span> {{__("auth.Store")}}</span>
             </a>
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header"> Store:</h6>
-                    <a class="collapse-item" href="{{route('brands.index')}}">brands</a>
-                    <a class="collapse-item" href="{{route('categories.index')}}">categories</a>
-                    <a class="collapse-item" href="{{route('products.index')}}">products</a>
-
+                    <h6 class="collapse-header"> {{__("auth.Store")}}:</h6>
+                    @can('access-brands')
+                        <a class="collapse-item" href="{{route('brands.index')}}">{{__("brands")}}</a>
+                    @endcan
+                    @can('access-categories')
+                        <a class="collapse-item" href="{{route('categories.index')}}">{{__("categories")}}</a>
+                    @endcan
+                    @can('access-products')
+                        <a class="collapse-item" href="{{route('products.index')}}">{{__('products')}}</a>
+                    @endcan
 
                 </div>
             </div>
@@ -185,7 +195,7 @@
                 </form>
 
                 <!-- Topbar Navbar -->
-             @include('shared.nav')
+                @include('shared.nav')
             </nav>
             <!-- End of Topbar -->
 
@@ -256,10 +266,12 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.select2').select2();
     });
 </script>
+
+
 </body>
 
 </html>

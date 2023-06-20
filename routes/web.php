@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +24,14 @@ use App\Http\Controllers\ProductController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/changeLang/{lang}', function (string $locale) {
+    if (!in_array($locale, ['en', 'ar'])) {
+        abort(400);
+    }
+    App::setLocale($locale);
+    session()->put('locale', $locale);
+    return redirect()->back();
+})->name("changeLang");
 
 Route::get('/dashboard', function () {
     return view('posts.index');
@@ -36,7 +46,7 @@ Route::middleware('auth')->group(function () {
     //Route::get('/',[PostController::class,'index'])
 //    ->name('posts');
 
-    Route::get('/carts',[PostController::class,'carts'])->name('posts');
+    Route::get('/carts', [PostController::class, 'carts'])->name('posts');
 
 //Route::get('/categories',[CategoryController::class,'index'])
 //->name('categories.index');
@@ -54,9 +64,14 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('categories',
         CategoryController::class);
-
+//    Route::group(['middleware' => ['can:access-brands']], function () {
     Route::resource('brands',
         BrandController::class);
+//    });
+
+
+    Route::resource('users',
+        UserController::class);
 
     Route::resource('products',
         ProductController::class);
@@ -64,4 +79,4 @@ Route::middleware('auth')->group(function () {
         RoleController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

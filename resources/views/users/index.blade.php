@@ -3,52 +3,47 @@
 @section('content')
 
     <div class="container-fluid bg-white">
-        <h1> products</h1>
+        <h1> users</h1>
 
-        <a href="{{route('products.create')}}" class="btn btn-primary mb-5 float-right"> create</a>
+        <a href="{{route('users.create')}}" class="btn btn-primary mb-5 float-right"> create</a>
 
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Phone</th>
                 <th>Image</th>
-                <th>Brand</th>
-                <th>Categories</th>
-                <th>Price</th>
-                <th>Description</th>
                 <th>status</th>
                 <th>actions</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($products as $product)
+            @foreach($users as $user)
                 <tr>
-                    <td>{{$product->id}}</td>
-                    <td>{{$product->name}}</td>
-                    <td><img  width="50" src="{{url('storage/'.$product->image)}}"></td>
-                    <td>{{$product->brand->name}}</td>
-                    <td>
-
-
-
-                            <div class="d-flex justify-content-between">
-                                @foreach($product->categories as $category)
-                                <span class="mx-1">{{$category->name}}</span>
-                                @endforeach
-                            </div>
+                    <td>{{$user->id}}</td>
+                    <td>{{$user->name}}</td>
+                    <td><div >
+                           @foreach($user->roles as $role)
+                               <span class="mx-1"> {{$role->name}} </span>
+                           @endforeach
+                        </div>
 
                     </td>
-                    <td>{{$product->price}}</td>
-                    <td>{{$product->description}}</td>
-                    <td>{{$product->status}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{$user->phone}}</td>
+                    <td><img  width="50" src="{{url('storage/'.$user->image)}}"></td>
+
+                    <td>{{$user->status}}</td>
                     <td style="width: 180px;">
-                        <a href="{{route('products.edit',$product)}}">
+                        <a href="{{route('users.edit',$user)}}">
 							<span class="btn  btn-outline-success btn-sm font-1 mx-1">
 								<span class="fas fa-wrench "></span> تحكم
 							</span>
                         </a>
-                        <form method="POST" action="{{route('products.destroy',$product)}}"
+                        <form method="POST" action="{{route('users.destroy',$user)}}"
                               class="d-inline-block">
                             @csrf
                             @method("DELETE")
@@ -67,7 +62,7 @@
             </tbody>
         </table>
         <div class="col-12 p-3">
-            {!! $products->render() !!}
+            {!! $users->render() !!}
         </div>
     </div>
 @endsection
