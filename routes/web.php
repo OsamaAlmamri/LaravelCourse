@@ -27,6 +27,14 @@ Route::get('/storage_link',function (){
 
     return '<h1>storage linked</h1>';
 });
+Route::get('/sendEmail',function (){
+    \Illuminate\Support\Facades\Mail::to('osama.moh.almamari@gmail.com')
+        ->send(new \App\Mail\TestEmail(['title'=>"test change data"]));
+
+    return '<h1>Email  Sened</h1>';
+});
+
+
 
 Route::get('/migrate',function (){
     $status = Artisan::call('migrate');
