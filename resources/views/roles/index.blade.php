@@ -10,6 +10,7 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Users</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -18,6 +19,7 @@
                 <tr>
                     <td>{{$role->id}}</td>
                     <td>{{$role->name}}</td>
+                    <td>{{$role->users()->count()}}</td>
                     <td style="width: 270px;">
 
 

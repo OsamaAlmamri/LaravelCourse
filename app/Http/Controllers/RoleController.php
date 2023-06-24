@@ -45,14 +45,14 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => "required|unique:roles,name,".$request->id,
+            'name' => "required|unique:roles,name," . $request->id,
         ]);
         $role = Role::UpdateOrCreate(
-            ["id"=>$request->id],
+            ["id" => $request->id],
             [
-            'name' => $request->name,
+                'name' => $request->name,
 
-        ]);
+            ]);
         $role->syncPermissions($request->permissions);
         toastr()->success("تمت العملية بنجاح");
         return redirect()->route('roles.index');
@@ -101,8 +101,17 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role->delete();
-        toastr()->success("تمت العملية بنجاح");
+        //  $role->delete();
+
+        $users = $role->users()->count();
+
+
+        if ($users == 0) {
+            $role->delete();
+            toastr()->success("تمت العملية بنجاح");
+        }
+        else
+            toastr()->warning("لايمكن الحذف ");
         return redirect()->route('roles.index');
     }
 }

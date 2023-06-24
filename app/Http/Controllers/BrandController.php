@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
@@ -16,14 +17,26 @@ class BrandController extends Controller
     {
 //        $this->middleware(['role:admin','permission:access-brands|edit articles']);
 
-        $this->middleware('permission:access-brands', ['only' => ['index','show']]);
-        $this->middleware('permission:create-brands', ['only' => ['create','store']]);
-        $this->middleware('permission:update-brands', ['only' => ['edit','store']]);
+        $this->middleware('permission:access-brands', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create-brands', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update-brands', ['only' => ['edit', 'store']]);
         $this->middleware('permission:delete-brands', ['only' => ['destroy']]);
     }
+
     public function index()
     {
-        $brands = Brand::paginate(10);
+        $brands = Brand::
+//        whereExists(function ($query) {
+//            $query->select(DB::raw(1))
+//                ->from('products')
+//                ->whereColumn('brands.id', 'products.brand_id');
+//        })
+//           whereNotIn('id',function ($query){
+//                $query->select('brand_id')
+//                    ->from('products');
+//            })
+
+            paginate(10);
         return view('brands.index', compact('brands'));
     }
 
