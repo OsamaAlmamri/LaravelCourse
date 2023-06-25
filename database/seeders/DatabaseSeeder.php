@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Database\Factories\MechanicFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,15 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-//       $this->call([
-//          CategorySeeder::class,
-//           MechanicSeeder::class,
-//       ]);
-         \App\Models\User::factory(10)->create();
-        // \App\Models\Post::factory(10)->create();
-     //    \App\Models\Comment::factory(150)->create();
-        // \App\Models\Color::factory(10)->create();
-         \App\Models\CarColor::factory(100)->create();
+       $this->call([
+//          CategorySeeder::class
+          PermissionsSeeder::class
+       ]);
+        // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

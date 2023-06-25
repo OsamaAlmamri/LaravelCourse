@@ -1,0 +1,4 @@
+php artisan make:model Brand  -a
+php artisan make:model Product  -a
+php artisan make:model ProductImage  -a
+php artisan make:model ProductCategory -m
