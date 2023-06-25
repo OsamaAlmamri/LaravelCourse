@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\ProductImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -49,7 +50,19 @@ class ProductController extends Controller
 
     public function index()
     {
+//        $not=auth()->user()->notifications;
+        ///return dd($not);
 
+//        auth()->user()->notify(
+//            new \App\Notifications\GeneralNotification([
+//                'content'=>"تم اضافة منتج جديد بواسطة اسامة",
+//                'action_url'=>route('products.index'),
+//                'btn_text'=>"عرض المنتج",
+//                'methods'=>['database'],
+//                'image'=>"",
+//
+//            ])
+//        );
 
 //        $products = DB::table('products')
 //            ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
@@ -87,6 +100,7 @@ class ProductController extends Controller
 //               ->inRandomOrder()
 
 //                ->skip(5)->take(5)->get();
+            orderBy('id','DESC')->
             paginate(10);
         return view('products.index')
             ->with('deleted', 0)
@@ -134,7 +148,8 @@ class ProductController extends Controller
             'status' => isset($request->status)
         ]);
 
-        $product->categories()->sync($request->categories);
+
+
         if ($request->id > 0)
             toastr()->success('تم الاضافة بنجاح');
         else

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomNotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -60,6 +61,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('fcm_token',[CustomNotificationController::class,'fcm_token'])
+        ->name('fcm_token');
+    Route::get('resend/custom-notifications/{id}',
+        [CustomNotificationController::class,'resend'])
+        ->name('custom-notifications.resend');
+    Route::resource('custom-notifications',CustomNotificationController::class);
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
