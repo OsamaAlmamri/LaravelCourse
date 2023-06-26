@@ -75,7 +75,7 @@
                     <h6 class="collapse-header">Auth:</h6>
                     <a class="collapse-item" href="{{route('custom-notifications.index')}}">custom notifications</a>
                     <a class="collapse-item" href="{{route('roles.index')}}">Roles</a>
-                    <a class="collapse-item" href="{{url('users.index')}}">Users</a>
+                    <a class="collapse-item" href="{{route('users.index')}}">Users</a>
                 </div>
             </div>
         </li>

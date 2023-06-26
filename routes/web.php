@@ -23,21 +23,20 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/storage_link',function (){
+Route::get('/storage_link', function () {
     $status = Artisan::call('storage:link');
 
     return '<h1>storage linked</h1>';
 });
-Route::get('/sendEmail',function (){
+Route::get('/sendEmail', function () {
     \Illuminate\Support\Facades\Mail::to('osama.moh.almamari@gmail.com')
-        ->send(new \App\Mail\TestEmail(['title'=>"test change data"]));
+        ->send(new \App\Mail\TestEmail(['title' => "test change data"]));
 
     return '<h1>Email  Sened</h1>';
 });
 
 
-
-Route::get('/migrate',function (){
+Route::get('/migrate', function () {
     $status = Artisan::call('migrate');
 
     return '<h1>migrated success </h1>';
@@ -61,12 +60,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('fcm_token',[CustomNotificationController::class,'fcm_token'])
+    Route::get('fcm_token', [CustomNotificationController::class, 'fcm_token'])
         ->name('fcm_token');
     Route::get('resend/custom-notifications/{id}',
-        [CustomNotificationController::class,'resend'])
+        [CustomNotificationController::class, 'resend'])
         ->name('custom-notifications.resend');
-    Route::resource('custom-notifications',CustomNotificationController::class);
+    Route::resource('custom-notifications', CustomNotificationController::class);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -100,12 +99,14 @@ Route::middleware('auth')->group(function () {
         BrandController::class);
 //    });
 
+    Route::get('users/export', [UserController::class, 'export'])->name('users.export');
+    Route::post('users/import', [UserController::class, 'import'])->name('users.import');
 
     Route::resource('users',
         UserController::class);
-Route::get('products/trashed',[ProductController::class,'deleted_index'])->name('products.trashed');
-Route::get('products/restore/{id}',[ProductController::class,'restore'])->name('products.restore');
-Route::delete('products/forceDelete/{id}',[ProductController::class,'forceDelete'])->name('products.forceDelete');
+    Route::get('products/trashed', [ProductController::class, 'deleted_index'])->name('products.trashed');
+    Route::get('products/restore/{id}', [ProductController::class, 'restore'])->name('products.restore');
+    Route::delete('products/forceDelete/{id}', [ProductController::class, 'forceDelete'])->name('products.forceDelete');
     Route::resource('products',
         ProductController::class);
     Route::resource('roles',

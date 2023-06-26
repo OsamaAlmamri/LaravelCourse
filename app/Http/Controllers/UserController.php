@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use mysql_xdevapi\Exception;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -13,6 +17,32 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function export()
+    {
+        return Excel::download((new UsersExport)
+            ->forStatus(1)->forYear(2023), 'users.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $path = '';
+        if ($request->hasFile('file'))
+            $path = $request->file('file')->store('imports');
+        if ($path != "") {
+            try {
+                Excel::import(new UsersImport, 'storage/' . $path);
+                toastr()->success('تم الاستيراد  بنجاح');
+            }
+            catch (Exception $ex)
+            {
+                toastr()->error($ex->getMessage());
+            }
+
+        }
+        return redirect(route('users.index'));
+    }
+
     public function index()
     {
         $users = User::paginate(25);
